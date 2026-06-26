@@ -1,5 +1,5 @@
 /**
- * Aetheris AI - Landing Page Core Interactive Logic
+ * Apeiron AI - Landing Page Core Interactive Logic
  * Optimized for performance-isolated DOM updates and zero global layout thrashing.
  */
 

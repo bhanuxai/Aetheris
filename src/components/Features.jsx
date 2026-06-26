@@ -17,7 +17,7 @@ function Features() {
   const items = [
     {
       title: 'Discovery',
-      description: 'Deploy silent ingestion triggers across distributed microservices. Aetheris automatically discovers active network hooks, parses unstructured JSON logs, and builds unified schema definitions in real-time.',
+      description: 'Deploy silent ingestion triggers across distributed microservices. Apeiron automatically discovers active network hooks, parses unstructured JSON logs, and builds unified schema definitions in real-time.',
       iconPath: '/SVGs/search.svg',
       tag: 'Telemetry'
     },
@@ -29,13 +29,13 @@ function Features() {
     },
     {
       title: 'Training',
-      description: 'Fine-tune small language parsing models directly on your historic log database. Provisioned on isolated GPU server nodes, Aetheris models compile unstructured log files with extreme vocabulary accuracy.',
+      description: 'Fine-tune small language parsing models directly on your historic log database. Provisioned on isolated GPU server nodes, Apeiron models compile unstructured log files with extreme vocabulary accuracy.',
       iconPath: '/SVGs/cog-8-tooth.svg',
       tag: 'Optimization'
     },
     {
       title: 'Deploy',
-      description: 'Publish your parsed endpoints globally. When upstream third-party service APIs modify their schema configurations, Aetheris automatically shifts routing definitions at the edge, preventing pipeline breaks.',
+      description: 'Publish your parsed endpoints globally. When upstream third-party service APIs modify their schema configurations, Apeiron automatically shifts routing definitions at the edge, preventing pipeline breaks.',
       iconPath: '/SVGs/link.svg',
       tag: 'Edge Sync'
     }
@@ -58,7 +58,7 @@ function Features() {
             <ShinyText text="THE PRIMITIVES" color="#FFC801" shineColor="#ffffff" speed={3} />
           </h2>
           <p className="text-mystic-mint/60 text-xs max-w-md mx-auto mt-4 leading-relaxed font-mono uppercase tracking-widest">
-            Aetheris's autonomous engine broken down into core telemetry operational primitives.
+            Apeiron's autonomous engine broken down into core telemetry operational primitives.
           </p>
         </div>
 

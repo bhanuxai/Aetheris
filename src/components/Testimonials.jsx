@@ -77,21 +77,21 @@ function Testimonials() {
     },
     {
       company: 'SCALEDATA INC',
-      review: '"We exposed our entire vector logs database using Aetheris semantic queries. Our query throughput latency ratio improved to 13.51:1. Saved us months of custom engineering."',
+      review: '"We exposed our entire vector logs database using Apeiron semantic queries. Our query throughput latency ratio improved to 13.51:1. Saved us months of custom engineering."',
       author: 'Sarah Jenkins',
       title: 'CTO, Data Systems',
       rating: 5
     },
     {
       company: 'DELTA FLOW',
-      review: '"Ingesting real-time message queue streams at 14.8 GB/s. Integrity checks yield a strict contrast ratio of 19.23:1, and Aetheris handles structural database schema shifts flawlessly."',
+      review: '"Ingesting real-time message queue streams at 14.8 GB/s. Integrity checks yield a strict contrast ratio of 19.23:1, and Apeiron handles structural database schema shifts flawlessly."',
       author: 'Michael Chen',
       title: 'Principal Data Engineer',
       rating: 5
     },
     {
       company: 'VORTEX DEV',
-      review: '"Aetheris is now the core data layer for all our intelligence agent pipelines. The self-healing routing at the edge has yielded a 9.85:1 reduction in production debugging logs."',
+      review: '"Apeiron is now the core data layer for all our intelligence agent pipelines. The self-healing routing at the edge has yielded a 9.85:1 reduction in production debugging logs."',
       author: 'Elena Rostova',
       title: 'Founder, IA Logistics',
       rating: 5

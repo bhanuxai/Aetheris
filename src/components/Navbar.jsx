@@ -51,8 +51,8 @@ function Navbar() {
 
   const logo = (
     <a href="#" className="flex items-center gap-2.5 group cursor-target select-none">
-      <img src="/SVGs/cube-16-solid.svg" className="w-5 h-5 transition-transform duration-500 group-hover:rotate-[360deg] ease-out" alt="Aetheris Logo" />
-      <span className="font-mono font-bold tracking-wider text-sm text-arctic-powder">AETHERIS</span>
+      <img src="/SVGs/cube-16-solid.svg" className="w-5 h-5 transition-transform duration-500 group-hover:rotate-[360deg] ease-out" alt="Apeiron Logo" />
+      <span className="font-mono font-bold tracking-wider text-sm text-arctic-powder">APEIRON</span>
       <span className="font-mono text-[9px] text-mystic-mint/65 uppercase tracking-wider ml-3.5 border-l border-arctic-powder/15 pl-3.5 h-4 flex items-center">
         // {displayText}
         <span className="w-0.5 h-3.5 bg-mystic-mint/80 ml-1.5 animate-pulse" />

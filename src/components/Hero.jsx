@@ -245,7 +245,7 @@ function Hero() {
 
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none bg-oceanic-noir opacity-15">
         <img 
-          src="/aetheris_hero_background.png" 
+          src="/apeiron_hero_background.png" 
           alt="" 
           className="w-full h-full object-cover mix-blend-screen scale-[1.02] filter invert opacity-50 blur-[1px]" 
         />
@@ -321,7 +321,7 @@ function Hero() {
             className="text-mystic-mint/85 text-sm max-w-md leading-relaxed mb-10 font-sans opacity-0"
           >
             Deploy custom enterprise pipelines and automate complex database streams. 
-            Scale your semantic intelligence with Aetheris today.
+            Scale your semantic intelligence with Apeiron today.
           </p>
 
           {/* Action CTAs: Icon box + White button */}

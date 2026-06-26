@@ -32,7 +32,7 @@ function SubPages({ activePage, onClose }) {
   };
 
   const pageTitles = {
-    about: 'About Aetheris',
+    about: 'About Apeiron',
     contact: 'Contact Node Connect',
     terms: 'Terms & Conditions',
     privacy: 'Privacy Policy'
@@ -44,7 +44,7 @@ function SubPages({ activePage, onClose }) {
         return (
           <div className="space-y-6 text-left font-sans text-sm text-mystic-mint/85 leading-relaxed">
             <p>
-              <strong>Aetheris</strong> is a next-generation decentralized telemetry and data routing engine built for secure AI model execution at the edge. Founded under the vision of building real-time data pipelines without centralized database latency, Aetheris connects raw, high-throughput system transaction logs to localized vector environments instantaneously.
+              <strong>Apeiron</strong> is a next-generation decentralized telemetry and data routing engine built for secure AI model execution at the edge. Founded under the vision of building real-time data pipelines without centralized database latency, Apeiron connects raw, high-throughput system transaction logs to localized vector environments instantaneously.
             </p>
             <div>
               <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">Lead Systems Architect</h3>
@@ -167,7 +167,7 @@ function SubPages({ activePage, onClose }) {
             <div>
               <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">1. Agreement to Terms</h3>
               <p>
-                By booting or integrating with Aetheris AI systems (including client daemons, compilers, or local database connectors), you agree to be bound by these transaction rules.
+                By booting or integrating with Apeiron AI systems (including client daemons, compilers, or local database connectors), you agree to be bound by these transaction rules.
               </p>
             </div>
             <div>
@@ -191,19 +191,19 @@ function SubPages({ activePage, onClose }) {
             <div>
               <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">1. Local VPC air-gap policy</h3>
               <p>
-                Aetheris does not transmit raw database records or transaction vectors to centralized external targets. All schema vectorization and training sequences occur in your container stack.
+                Apeiron does not transmit raw database records or transaction vectors to centralized external targets. All schema vectorization and training sequences occur in your container stack.
               </p>
             </div>
             <div>
               <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">2. Telemetry Processing Rules</h3>
               <p>
-                Aetheris only gathers anonymized system metrics (e.g. data compaction speed, system anomaly scores, edge routing times). These metadata packets are collected solely to optimize routing algorithms and ensure node health.
+                Apeiron only gathers anonymized system metrics (e.g. data compaction speed, system anomaly scores, edge routing times). These metadata packets are collected solely to optimize routing algorithms and ensure node health.
               </p>
             </div>
             <div>
               <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">3. GDPR & air-gapped compliance</h3>
               <p>
-                Because all vector compilation occurs locally, you retain full ownership and control over data deletion hooks. Aetheris pipelines comply natively with international data sovereignty policies and standard GDPR regulations.
+                Because all vector compilation occurs locally, you retain full ownership and control over data deletion hooks. Apeiron pipelines comply natively with international data sovereignty policies and standard GDPR regulations.
               </p>
             </div>
           </div>

@@ -8,13 +8,13 @@ function RightSidebar() {
         <a href="#" className="hover:text-arctic-powder transition-colors group">
           <Hexagon className="w-4 h-4 text-arctic-powder group-hover:rotate-180 transition-transform duration-300" />
         </a>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-arctic-powder transition-colors" aria-label="Aetheris GitHub">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-arctic-powder transition-colors" aria-label="Apeiron GitHub">
           <Github className="w-4 h-4" />
         </a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-arctic-powder transition-colors" aria-label="Aetheris Twitter">
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-arctic-powder transition-colors" aria-label="Apeiron Twitter">
           <Twitter className="w-4 h-4" />
         </a>
-        <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="hover:text-arctic-powder transition-colors" aria-label="Aetheris Discord">
+        <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="hover:text-arctic-powder transition-colors" aria-label="Apeiron Discord">
           <MessageSquare className="w-4 h-4" />
         </a>
       </div>

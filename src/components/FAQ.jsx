@@ -7,12 +7,12 @@ function FAQ() {
 
   const faqs = [
     {
-      q: 'How does Aetheris auto-detect upstream API schema shifts?',
-      a: 'We deploy lightweight parser deamons at your service entry gateways. These daemons audit JSON key structures and datatypes in real-time. When a third-party hook changes a field from an integer to a string, Aetheris automatically triggers a re-modeling event and patches edge routing definitions in 12ms, preventing pipeline breaks.'
+      q: 'How does Apeiron auto-detect upstream API schema shifts?',
+      a: 'We deploy lightweight parser deamons at your service entry gateways. These daemons audit JSON key structures and datatypes in real-time. When a third-party hook changes a field from an integer to a string, Apeiron automatically triggers a re-modeling event and patches edge routing definitions in 12ms, preventing pipeline breaks.'
     },
     {
       q: 'What vector engines and databases are natively supported?',
-      a: 'Aetheris has production-grade adapter nodes for PostgreSQL, Redis, AWS S3, Google BigQuery, and major vector engines including Pinecone, Qdrant, and Milvus. Custom database integration mappings can be compiled in minutes using our developer SDK.'
+      a: 'Apeiron has production-grade adapter nodes for PostgreSQL, Redis, AWS S3, Google BigQuery, and major vector engines including Pinecone, Qdrant, and Milvus. Custom database integration mappings can be compiled in minutes using our developer SDK.'
     },
     {
       q: 'Is pipeline metadata or tenant data shared with external AI clusters?',

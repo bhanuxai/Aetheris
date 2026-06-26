@@ -32,7 +32,7 @@ function Footer({ onOpenPage }) {
     <img 
       src="/SVGs/cube-16-solid.svg" 
       className="w-16 h-16 transition-transform duration-700 hover:rotate-[360deg] ease-out select-none" 
-      alt="Aetheris Logo" 
+      alt="Apeiron Logo" 
       draggable={false}
     />
   );
@@ -139,14 +139,14 @@ function Footer({ onOpenPage }) {
           {/* Giant lowercase Brand text logo stretching edge-to-edge */}
           <div className="w-full text-center select-none pointer-events-none pt-4 overflow-hidden">
             <span className="font-sans font-black text-[16vw] leading-none text-arctic-powder tracking-tighter lowercase select-none block opacity-95">
-              aetheris
+              apeiron
             </span>
           </div>
 
           {/* Curved Text Loop directly below the giant company name watermark with big text */}
           <div className="w-full select-none pointer-events-none -mt-4 mb-2 overflow-visible">
             <CurvedLoop 
-              marqueeText="AETHERIS BUILDS REAL-TIME PIPELINES CONNECTING DATABASES TO AI MODELS. COMPUTE FEATURES, COMPILE SCHEMAS, AND ENFORCE SAFETY BOUNDARIES DYNAMICALLY."
+              marqueeText="APEIRON BUILDS REAL-TIME PIPELINES CONNECTING DATABASES TO AI MODELS. COMPUTE FEATURES, COMPILE SCHEMAS, AND ENFORCE SAFETY BOUNDARIES DYNAMICALLY."
               speed={1.5}
               curveAmount={40}
               className="font-sans text-[28px] sm:text-[36px] fill-mystic-mint/40 uppercase tracking-[0.18em]"
@@ -156,7 +156,7 @@ function Footer({ onOpenPage }) {
 
           {/* Centered Small Copyright Notice */}
           <div className="text-center font-mono text-[9px] text-mystic-mint/35 uppercase tracking-[0.25em] pb-4">
-            © {new Date().getFullYear()} Aetheris AI. All rights reserved.
+            © {new Date().getFullYear()} Apeiron AI. All rights reserved.
           </div>
         </div>
 

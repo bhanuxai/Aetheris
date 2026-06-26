@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Plus } from 'lucide-react';
 import ShinyText from './react-bits/ShinyText';
 
@@ -54,31 +53,25 @@ function FAQ() {
                   </div>
                   
                   {/* Rotating plus icon */}
-                  <motion.div
-                    animate={{ rotate: isExpanded ? 45 : 0 }}
-                    transition={{ duration: 0.25, ease: 'easeInOut' }}
-                    className="text-mystic-mint group-hover:text-arctic-powder p-1 rounded-full border border-transparent group-hover:border-arctic-powder/10 transition-all flex-shrink-0 ml-4"
+                  <div
+                    className={`text-mystic-mint group-hover:text-arctic-powder p-1 rounded-full border border-transparent group-hover:border-arctic-powder/10 transition-all flex-shrink-0 ml-4 duration-300 ${isExpanded ? 'rotate-[45deg]' : 'rotate-0'}`}
                   >
                     <Plus className="w-4 h-4" />
-                  </motion.div>
+                  </div>
                 </button>
 
-                {/* Animated accordion panel */}
-                <AnimatePresence initial={false}>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pl-8 sm:pl-12 pr-4 pt-2 pb-4 text-mystic-mint/80 text-sm leading-relaxed font-sans">
-                        {faq.a}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Animated accordion panel using CSS grid transition */}
+                <div
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isExpanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="pl-8 sm:pl-12 pr-4 pt-2 pb-4 text-mystic-mint/80 text-sm leading-relaxed font-sans">
+                      {faq.a}
+                    </div>
+                  </div>
+                </div>
               </div>
             );
           })}

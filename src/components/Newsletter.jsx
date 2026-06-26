@@ -1,13 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 import { ArrowRight, Terminal } from 'lucide-react';
 import Magnet from './react-bits/Magnet';
 import ShinyText from './react-bits/ShinyText';
-
-const arrowRightVariants = {
-  initial: { x: 0 },
-  hover: { x: 4 }
-};
 
 function Newsletter() {
   const [email, setEmail] = useState('');
@@ -124,12 +118,10 @@ function Newsletter() {
           />
           
           <Magnet padding={20} magnetStrength={14}>
-            <motion.button 
+            <button 
               type="submit"
-              whileHover="hover"
-              initial="initial"
               disabled={status === 'loading' || status === 'success'}
-              className="bg-arctic-powder text-oceanic-noir px-6 py-3 rounded font-bold hover:bg-mystic-mint transition-colors flex items-center justify-center gap-2 flex-shrink-0 shadow-md cursor-pointer cursor-target"
+              className="group bg-arctic-powder text-oceanic-noir px-6 py-3 rounded font-bold hover:bg-mystic-mint transition-colors flex items-center justify-center gap-2 flex-shrink-0 shadow-md cursor-pointer cursor-target"
             >
               {status === 'loading' ? (
                 <span>REQUESTING...</span>
@@ -138,12 +130,12 @@ function Newsletter() {
               ) : (
                 <>
                   <span>REQUEST ACCESS</span>
-                  <motion.span variants={arrowRightVariants} transition={{ type: 'spring', stiffness: 400, damping: 25 }}>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
                     <ArrowRight className="w-4 h-4 text-oceanic-noir" />
-                  </motion.span>
+                  </span>
                 </>
               )}
-            </motion.button>
+            </button>
           </Magnet>
         </form>
 

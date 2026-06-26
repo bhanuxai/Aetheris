@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react';
-import { motion } from 'framer-motion';
 import { ArrowUpRight, Cpu, Terminal } from 'lucide-react';
 import gsap from 'gsap';
 import Magnet from './react-bits/Magnet';
@@ -67,6 +66,8 @@ function Hero() {
   const linksRef = useRef(null);
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const ctaRef = useRef(null);
   const [mouseCanvasPos, setMouseCanvasPos] = useState({ x: -1000, y: -1000 });
 
   // Track cursor position on canvas
@@ -84,7 +85,7 @@ function Hero() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // GSAP animations for list slide-in
+  // GSAP animations for list slide-in and text reveals
   useEffect(() => {
     // Animate middle-right links sliding in
     if (linksRef.current) {
@@ -92,6 +93,20 @@ function Hero() {
       gsap.fromTo(linkItems,
         { x: 30, opacity: 0 },
         { x: 0, opacity: 1, duration: 1.4, ease: 'power4.out', stagger: 0.15, delay: 0.4 }
+      );
+    }
+
+    // Animate subtitle and CTA elements sliding up
+    if (subtitleRef.current) {
+      gsap.fromTo(subtitleRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: 'power2.out' }
+      );
+    }
+    if (ctaRef.current) {
+      gsap.fromTo(ctaRef.current,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.6, delay: 0.3, ease: 'power2.out' }
       );
     }
   }, []);
@@ -301,22 +316,18 @@ function Hero() {
           </h1>
 
           {/* Subtitle */}
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-            className="text-mystic-mint/85 text-sm max-w-md leading-relaxed mb-10 font-sans"
+          <p 
+            ref={subtitleRef}
+            className="text-mystic-mint/85 text-sm max-w-md leading-relaxed mb-10 font-sans opacity-0"
           >
             Deploy custom enterprise pipelines and automate complex database streams. 
             Scale your semantic intelligence with Aetheris today.
-          </motion.p>
+          </p>
 
           {/* Action CTAs: Icon box + White button */}
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
-            className="flex items-center gap-3.5"
+          <div 
+            ref={ctaRef}
+            className="flex items-center gap-3.5 opacity-0"
           >
             <div className="w-12 h-12 border border-arctic-powder/15 bg-nocturnal-expedition/50 rounded flex items-center justify-center text-mystic-mint shadow-sm cursor-target" aria-hidden="true">
               <Terminal className="w-5 h-5 text-mystic-mint" />
@@ -328,7 +339,7 @@ function Hero() {
               <span>Build A Pipeline</span>
               <ArrowUpRight className="w-4 h-4 text-oceanic-noir" />
             </a>
-          </motion.div>
+          </div>
         </div>
 
         {/* Right Column: Stacked Links and Partner Logos shifted slightly higher */}

@@ -1,13 +1,26 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { X, Send, Check } from 'lucide-react';
 import Magnet from './react-bits/Magnet';
 
 function SubPages({ activePage, onClose }) {
   const [formStatus, setFormStatus] = useState('idle'); // idle, sending, success
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [visiblePage, setVisiblePage] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
-  if (!activePage) return null;
+  useEffect(() => {
+    if (activePage) {
+      setVisiblePage(activePage);
+      const timer = setTimeout(() => setIsOpen(true), 20);
+      return () => clearTimeout(timer);
+    } else {
+      setIsOpen(false);
+      const timer = setTimeout(() => setVisiblePage(null), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [activePage]);
+
+  if (!visiblePage) return null;
 
   const handleContactSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +39,7 @@ function SubPages({ activePage, onClose }) {
   };
 
   const renderContent = () => {
-    switch (activePage) {
+    switch (visiblePage) {
       case 'about':
         return (
           <div className="space-y-6 text-left font-sans text-sm text-mystic-mint/85 leading-relaxed">
@@ -58,101 +71,115 @@ function SubPages({ activePage, onClose }) {
             </p>
             
             <form onSubmit={handleContactSubmit} className="space-y-4 font-mono text-xs">
-              <div>
-                <label className="block text-mystic-mint/55 mb-1.5 uppercase tracking-wider">FULL_NAME</label>
-                <input 
-                  type="text" 
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="ENTER_FULL_NAME" 
-                  disabled={formStatus === 'sending' || formStatus === 'success'}
-                  className="bg-nocturnal-expedition/30 border border-arctic-powder/10 hover:border-arctic-powder/30 focus:border-mystic-mint/50 focus:outline-none rounded px-4 py-3 text-arctic-powder w-full transition-colors cursor-target"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="contact-name" className="block text-mystic-mint/45 mb-1.5 uppercase tracking-wider">
+                    Name
+                  </label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    required
+                    value={formData.name}
+                    disabled={formStatus === 'sending' || formStatus === 'success'}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="ENTER_NAME"
+                    className="w-full bg-nocturnal-expedition/30 border border-arctic-powder/10 focus:border-mystic-mint/55 focus:outline-none rounded px-3.5 py-2.5 text-arctic-powder transition-colors cursor-target"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="contact-email" className="block text-mystic-mint/45 mb-1.5 uppercase tracking-wider">
+                    Email Address
+                  </label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    disabled={formStatus === 'sending' || formStatus === 'success'}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="ENTER_EMAIL_ADDRESS"
+                    className="w-full bg-nocturnal-expedition/30 border border-arctic-powder/10 focus:border-mystic-mint/55 focus:outline-none rounded px-3.5 py-2.5 text-arctic-powder transition-colors cursor-target"
+                  />
+                </div>
               </div>
 
               <div>
-                <label className="block text-mystic-mint/55 mb-1.5 uppercase tracking-wider">EMAIL_ADDRESS</label>
-                <input 
-                  type="email" 
+                <label htmlFor="contact-message" className="block text-mystic-mint/45 mb-1.5 uppercase tracking-wider">
+                  Request Payload Detail
+                </label>
+                <textarea
+                  id="contact-message"
                   required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="ENTER_EMAIL_ADDRESS" 
-                  disabled={formStatus === 'sending' || formStatus === 'success'}
-                  className="bg-nocturnal-expedition/30 border border-arctic-powder/10 hover:border-arctic-powder/30 focus:border-mystic-mint/50 focus:outline-none rounded px-4 py-3 text-arctic-powder w-full transition-colors cursor-target"
-                />
-              </div>
-
-              <div>
-                <label className="block text-mystic-mint/55 mb-1.5 uppercase tracking-wider">MESSAGE_PAYLOAD</label>
-                <textarea 
-                  rows="4"
-                  required
+                  rows={4}
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="COMPOSE_MESSAGE_PAYLOAD..." 
                   disabled={formStatus === 'sending' || formStatus === 'success'}
-                  className="bg-nocturnal-expedition/30 border border-arctic-powder/10 hover:border-arctic-powder/30 focus:border-mystic-mint/50 focus:outline-none rounded px-4 py-3 text-arctic-powder w-full transition-colors cursor-target resize-none"
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder="DESCRIBE_YOUR_INTEGRATION_REQUEST_PAYLOAD"
+                  className="w-full bg-nocturnal-expedition/30 border border-arctic-powder/10 focus:border-mystic-mint/55 focus:outline-none rounded px-3.5 py-2.5 text-arctic-powder transition-colors resize-none cursor-target"
                 />
               </div>
 
-              <div className="pt-2 flex items-center justify-between gap-4">
-                {formStatus === 'success' ? (
-                  <span className="text-emerald-400 font-mono text-[10px] flex items-center gap-1.5 animate-pulse">
-                    <Check className="w-3.5 h-3.5" />
-                    &gt; PAYLOAD: SENT_SUCCESSFULLY. CONNECTING_AGENT...
-                  </span>
-                ) : formStatus === 'sending' ? (
-                  <span className="text-mystic-mint/60 font-mono text-[10px] animate-pulse">
-                    &gt; connection: transmitting_payload...
-                  </span>
-                ) : (
-                  <span className="text-mystic-mint/35 font-mono text-[9px]">
-                    &gt; ready: secure_node_connection
-                  </span>
-                )}
-
-                <Magnet padding={15} magnetStrength={8}>
-                  <button 
+              <div className="pt-2">
+                <Magnet padding={18} magnetStrength={10}>
+                  <button
                     type="submit"
                     disabled={formStatus === 'sending' || formStatus === 'success'}
-                    className="bg-arctic-powder text-oceanic-noir px-6 py-3 rounded font-bold hover:bg-mystic-mint transition-colors flex items-center justify-center gap-2 cursor-pointer cursor-target flex-shrink-0"
+                    className="w-full sm:w-auto bg-arctic-powder text-oceanic-noir font-bold px-6 py-2.5 rounded hover:bg-mystic-mint transition-colors flex items-center justify-center gap-2 cursor-pointer cursor-target shadow-sm"
                   >
-                    <span>SEND_MESSAGE</span>
-                    <Send className="w-3.5 h-3.5" />
+                    {formStatus === 'sending' ? (
+                      <>
+                        <span>TRANSMITTING...</span>
+                        <div className="w-3.5 h-3.5 border-2 border-oceanic-noir border-t-transparent rounded-full animate-spin" />
+                      </>
+                    ) : formStatus === 'success' ? (
+                      <>
+                        <span>PAYLOAD DEPLOYED</span>
+                        <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" />
+                      </>
+                    ) : (
+                      <>
+                        <span>TRANSMIT PAYLOAD</span>
+                        <Send className="w-3 h-3 text-oceanic-noir" />
+                      </>
+                    )}
                   </button>
                 </Magnet>
               </div>
             </form>
+
+            {formStatus === 'sending' && (
+              <div className="mt-4 font-mono text-[9px] text-mystic-mint/50 animate-pulse">
+                &gt; encrypting handshake: secure_transmission_established...
+              </div>
+            )}
+            {formStatus === 'success' && (
+              <div className="mt-4 font-mono text-[9px] text-emerald-400">
+                &gt; transmission: successful. an architecture node will verify your client token shortly.
+              </div>
+            )}
           </div>
         );
 
       case 'terms':
         return (
-          <div className="space-y-6 text-left font-sans text-sm text-mystic-mint/80 leading-relaxed max-h-[60vh] overflow-y-auto pr-4">
+          <div className="space-y-6 text-left font-sans text-xs sm:text-sm text-mystic-mint/85 leading-relaxed max-h-[350px] overflow-y-auto pr-2">
             <div>
               <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">1. Agreement to Terms</h3>
               <p>
-                By provisioning a cluster key or connecting a data daemon to the Aetheris AI engine, you agree to comply with and be bound by these Terms and Conditions. If you do not agree to these terms, do not access our endpoints or model pools.
+                By booting or integrating with Aetheris AI systems (including client daemons, compilers, or local database connectors), you agree to be bound by these transaction rules.
               </p>
             </div>
             <div>
-              <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">2. Ingestion & Model License</h3>
+              <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">2. Operating License & Limits</h3>
               <p>
-                Aetheris grants you a localized, revocable, non-exclusive license to deploy edge nodes and process database logs using compile node frameworks. You retain full proprietary rights to all unstructured inbound system logs ingested through the platform.
+                Developer Sandboxes are restricted to 10,000 daily queries and 1 ingestion pipeline. Scale and Enterprise tiers are governed by active node leases. System metrics are monitored locally.
               </p>
             </div>
             <div>
-              <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">3. Service Levels & Limitations</h3>
+              <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">3. Prohibited Telemetry Actions</h3>
               <p>
-                Aetheris services are provided "as-is" and "as available". We do not guarantee continuous uptime in case of hardware-level VPC node disruptions. You are solely responsible for setting compaction thresholds and validating custom routing pipelines.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">4. Core Indemnification</h3>
-              <p>
-                You agree to indemnify Aetheris and its systems architect, Alex Cristache, from any operational damages, data corruption, or network fees incurred due to misconfigured schema definitions or unauthorized server node exposures.
+                You may not reverse-compile the custom WebGL isometric waves layout, execute routing reduction injections, or utilize the zero-copy compiler for malicious neural pipeline construction.
               </p>
             </div>
           </div>
@@ -160,11 +187,11 @@ function SubPages({ activePage, onClose }) {
 
       case 'privacy':
         return (
-          <div className="space-y-6 text-left font-sans text-sm text-mystic-mint/80 leading-relaxed max-h-[60vh] overflow-y-auto pr-4">
+          <div className="space-y-6 text-left font-sans text-xs sm:text-sm text-mystic-mint/85 leading-relaxed max-h-[350px] overflow-y-auto pr-2">
             <div>
-              <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">1. Localized Zero-Leakage Architecture</h3>
+              <h3 className="font-mono text-xs text-arctic-powder uppercase tracking-wider mb-2">1. Local VPC air-gap policy</h3>
               <p>
-                Privacy is built natively into our technical layout. Aetheris operates on an air-gapped ingestion model. Raw log files, API transaction vectors, and database schema mappings remain completely inside your private virtual cloud firewall. We do not store or transmit tenant logs to centralized clusters.
+                Aetheris does not transmit raw database records or transaction vectors to centralized external targets. All schema vectorization and training sequences occur in your container stack.
               </p>
             </div>
             <div>
@@ -188,53 +215,47 @@ function SubPages({ activePage, onClose }) {
   };
 
   return (
-    <AnimatePresence>
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        className="fixed inset-0 bg-oceanic-noir/95 backdrop-blur-md z-[999] overflow-y-auto px-6 py-20 flex flex-col justify-start items-center"
+    <div 
+      className={`fixed inset-0 bg-oceanic-noir/95 backdrop-blur-md z-[999] overflow-y-auto px-6 py-20 flex flex-col justify-start items-center transition-opacity duration-300 ${
+        isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      }`}
+    >
+      {/* Subtle grid pattern background overlay */}
+      <div className="absolute inset-0 grid-bg pointer-events-none opacity-20" aria-hidden="true" />
+
+      <div 
+        className={`max-w-2xl w-full bg-nocturnal-expedition/15 border border-arctic-powder/10 p-8 sm:p-12 rounded-lg relative z-10 shadow-2xl transition-all duration-300 delay-75 ${
+          isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
+        }`}
       >
-        {/* Subtle grid pattern background overlay */}
-        <div className="absolute inset-0 grid-bg pointer-events-none opacity-20" aria-hidden="true" />
+        {/* Close Button */}
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+          <Magnet padding={12} magnetStrength={6}>
+            <button 
+              onClick={onClose}
+              className="p-2 border border-arctic-powder/10 hover:border-arctic-powder/30 rounded text-mystic-mint hover:text-arctic-powder hover:bg-arctic-powder/5 transition-all cursor-target block shadow-sm"
+              aria-label="Close page"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </Magnet>
+        </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 15 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="max-w-2xl w-full bg-nocturnal-expedition/15 border border-arctic-powder/10 p-8 sm:p-12 rounded-lg relative z-10 shadow-2xl"
-        >
-          {/* Close Button */}
-          <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
-            <Magnet padding={12} magnetStrength={6}>
-              <button 
-                onClick={onClose}
-                className="p-2 border border-arctic-powder/10 hover:border-arctic-powder/30 rounded text-mystic-mint hover:text-arctic-powder hover:bg-arctic-powder/5 transition-all cursor-target block shadow-sm"
-                aria-label="Close page"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </Magnet>
-          </div>
+        {/* Section Header */}
+        <div className="mb-10 text-left border-b border-arctic-powder/10 pb-6">
+          <span className="font-mono text-[9px] tracking-[0.25em] text-mystic-mint/45 uppercase block mb-2">
+            SYSTEM_SECURE_OVERLAY
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-bold font-sans tracking-tight text-arctic-powder uppercase leading-none">
+            {pageTitles[visiblePage]}
+          </h2>
+        </div>
 
-          {/* Section Header */}
-          <div className="mb-10 text-left border-b border-arctic-powder/10 pb-6">
-            <span className="font-mono text-[9px] tracking-[0.25em] text-mystic-mint/45 uppercase block mb-2">
-              SYSTEM_SECURE_OVERLAY
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-bold font-sans tracking-tight text-arctic-powder uppercase leading-none">
-              {pageTitles[activePage]}
-            </h2>
-          </div>
+        {/* Render Content */}
+        {renderContent()}
 
-          {/* Render Content */}
-          {renderContent()}
-
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+      </div>
+    </div>
   );
 }
 

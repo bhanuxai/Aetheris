@@ -1,9 +1,67 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { companyPaths } from './companyPaths';
 import ReflectiveCard from './react-bits/ReflectiveCard';
 import ShinyText from './react-bits/ShinyText';
+
+function useIntersectionReveal() {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return [ref, isVisible];
+}
+
+function IntegrationCard({ item, index, sharedStream }) {
+  const [ref, isVisible] = useIntersectionReveal();
+  const sysIndex = index + 1;
+  const logoSvg = (
+    <svg
+      role="img"
+      viewBox="0 0 24 24"
+      className="w-full h-full fill-current"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d={companyPaths[item.logoKey]} />
+    </svg>
+  );
+
+  return (
+    <div
+      ref={ref}
+      className={`cursor-pointer transition-all duration-500 relative h-[160px] cursor-target hover:-translate-y-1 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[15px]'
+      }`}
+      style={{ transitionDelay: `${index * 40}ms` }}
+    >
+      <ReflectiveCard
+        name={item.name}
+        desc={item.desc}
+        logoSvg={logoSvg}
+        sysIndex={sysIndex}
+        sharedStream={sharedStream}
+        blurStrength={8}
+        displacementStrength={15}
+        grayscale={0.7}
+        overlayColor="rgba(17, 76, 90, 0.25)"
+      />
+    </div>
+  );
+}
 
 function Integrations() {
   const integrations = [
@@ -80,43 +138,14 @@ function Integrations() {
 
         {/* Integration Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {integrations.map((item, index) => {
-            const sysIndex = index + 1;
-            const logoSvg = (
-              <svg
-                role="img"
-                viewBox="0 0 24 24"
-                className="w-full h-full fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d={companyPaths[item.logoKey]} />
-              </svg>
-            );
-
-            return (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.5, delay: index * 0.04 }}
-                whileHover={{ y: -4 }}
-                className="cursor-pointer transition-all duration-300 relative h-[160px] cursor-target"
-              >
-                <ReflectiveCard
-                  name={item.name}
-                  desc={item.desc}
-                  logoSvg={logoSvg}
-                  sysIndex={sysIndex}
-                  sharedStream={sharedStream}
-                  blurStrength={8}
-                  displacementStrength={15}
-                  grayscale={0.7}
-                  overlayColor="rgba(17, 76, 90, 0.25)"
-                />
-              </motion.div>
-            );
-          })}
+          {integrations.map((item, index) => (
+            <IntegrationCard 
+              key={item.name}
+              item={item}
+              index={index}
+              sharedStream={sharedStream}
+            />
+          ))}
         </div>
 
         {/* Infinite Scrolling Logo Marquee powered by GSAP */}
@@ -157,4 +186,3 @@ function Integrations() {
 }
 
 export default Integrations;
-

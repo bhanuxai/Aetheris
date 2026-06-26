@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Github, Twitter, Linkedin, Instagram } from 'lucide-react';
 import Magnet from './react-bits/Magnet';
 import CurvedLoop from './react-bits/CurvedLoop';

@@ -1,3 +1,12 @@
+@keyframes shiny-sweep {
+  0% {
+    background-position: 120% center;
+  }
+  100% {
+    background-position: -120% center;
+  }
+}
+
 .shiny-text {
   color: var(--text-color, #b5b5b5);
   background-clip: text;

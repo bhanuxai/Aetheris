@@ -1,13 +1,69 @@
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import ShinyText from './react-bits/ShinyText';
 
-const arrowVariants = {
-  initial: { x: 0, y: 0 },
-  hover: { x: 2, y: -2 }
-};
+function useIntersectionReveal() {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return [ref, isVisible];
+}
+
+function SideArticle({ article, index }) {
+  const [ref, isVisible] = useIntersectionReveal();
+  return (
+    <article 
+      ref={ref}
+      className={`flex gap-6 items-start text-left group cursor-pointer border-t border-arctic-powder/10 pt-8 first:border-none first:pt-0 cursor-target transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+      }`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      {/* Visual Thumbnail */}
+      <div className="w-28 h-20 sm:w-36 sm:h-24 rounded overflow-hidden flex-shrink-0 border border-arctic-powder/10 bg-black">
+        <img
+          src={article.image}
+          alt={article.title}
+          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-104 transition-all duration-400"
+        />
+      </div>
+
+      {/* Details side */}
+      <div className="flex flex-col gap-3 flex-grow">
+        <h3 className="text-base sm:text-lg font-bold text-arctic-powder leading-snug group-hover:text-forsythia transition-colors duration-300 font-sans flex items-start justify-between gap-2">
+          <span>{article.title}</span>
+          <ArrowUpRight className="w-5 h-5 text-mystic-mint opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 flex-shrink-0 mt-0.5" />
+        </h3>
+        
+        {/* Metadata bar */}
+        <div className="font-mono text-[9px] text-mystic-mint/45 uppercase tracking-wider flex items-center gap-2">
+          <span>{article.date}</span>
+          <span className="text-arctic-powder/20">•</span>
+          <span>{article.readTime}</span>
+        </div>
+      </div>
+    </article>
+  );
+}
 
 function Blog() {
+  const [featuredRef, featuredVisible] = useIntersectionReveal();
+
   const featuredArticle = {
     title: 'What It Takes to Turn AI Into a Business Asset',
     date: 'APR 29, 2026',
@@ -54,22 +110,18 @@ function Blog() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-arctic-powder/10 pt-12">
           
           {/* Left Column: Featured Article */}
-          <motion.article 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6 }}
-            whileHover="hover"
-            className="lg:col-span-7 flex flex-col gap-6 text-left group cursor-pointer cursor-target"
+          <article 
+            ref={featuredRef}
+            className={`lg:col-span-7 flex flex-col gap-6 text-left group cursor-pointer cursor-target transition-all duration-700 ${
+              featuredVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+            }`}
           >
             {/* Visual Container */}
             <div className="w-full h-[260px] sm:h-[400px] rounded-lg overflow-hidden relative border border-arctic-powder/10 bg-black">
-              <motion.img 
+              <img 
                 src={featuredArticle.image}
                 alt={featuredArticle.title}
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.4 }}
-                className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-300"
+                className="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-102 transition-all duration-400"
               />
               
               {/* Gradient Overlay for Text Contrast */}
@@ -79,9 +131,7 @@ function Blog() {
               <div className="absolute bottom-6 left-6 right-6">
                 <h3 className="text-xl sm:text-3xl font-bold text-white tracking-tight leading-snug font-sans group-hover:text-forsythia transition-colors duration-300 flex items-center justify-between gap-3">
                   <span>{featuredArticle.title}</span>
-                  <motion.span variants={arrowVariants} transition={{ type: 'spring', stiffness: 400, damping: 25 }}>
-                    <ArrowUpRight className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
-                  </motion.span>
+                  <ArrowUpRight className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 flex-shrink-0" />
                 </h3>
               </div>
             </div>
@@ -92,48 +142,16 @@ function Blog() {
               <span className="text-arctic-powder/20">•</span>
               <span>{featuredArticle.readTime}</span>
             </div>
-          </motion.article>
+          </article>
 
           {/* Right Column: Two Side Articles stacked with a vertical line separator */}
           <div className="lg:col-span-5 flex flex-col justify-center gap-12 lg:border-l lg:border-arctic-powder/10 lg:pl-12">
             {sideArticles.map((article, i) => (
-              <motion.article 
+              <SideArticle 
                 key={article.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                whileHover="hover"
-                className="flex gap-6 items-start text-left group cursor-pointer border-t border-arctic-powder/10 pt-8 first:border-none first:pt-0 cursor-target"
-              >
-                {/* Visual Thumbnail */}
-                <div className="w-28 h-20 sm:w-36 sm:h-24 rounded overflow-hidden flex-shrink-0 border border-arctic-powder/10 bg-black">
-                  <motion.img
-                    src={article.image}
-                    alt={article.title}
-                    whileHover={{ scale: 1.04 }}
-                    transition={{ duration: 0.4 }}
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-                  />
-                </div>
-
-                {/* Details side */}
-                <div className="flex flex-col gap-3 flex-grow">
-                  <h3 className="text-base sm:text-lg font-bold text-arctic-powder leading-snug group-hover:text-forsythia transition-colors duration-300 font-sans flex items-start justify-between gap-2">
-                    <span>{article.title}</span>
-                    <motion.span variants={arrowVariants} transition={{ type: 'spring', stiffness: 400, damping: 25 }}>
-                      <ArrowUpRight className="w-5 h-5 text-mystic-mint opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-0.5" />
-                    </motion.span>
-                  </h3>
-                  
-                  {/* Metadata bar */}
-                  <div className="font-mono text-[9px] text-mystic-mint/45 uppercase tracking-wider flex items-center gap-2">
-                    <span>{article.date}</span>
-                    <span className="text-arctic-powder/20">•</span>
-                    <span>{article.readTime}</span>
-                  </div>
-                </div>
-              </motion.article>
+                article={article}
+                index={i}
+              />
             ))}
           </div>
 

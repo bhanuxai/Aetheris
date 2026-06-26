@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Hexagon } from 'lucide-react';
 import StaggeredMenu from './react-bits/StaggeredMenu';
 
 function Navbar() {
@@ -52,7 +51,7 @@ function Navbar() {
 
   const logo = (
     <a href="#" className="flex items-center gap-2.5 group cursor-target select-none">
-      <Hexagon className="w-5 h-5 text-arctic-powder transition-transform duration-300 group-hover:rotate-180" />
+      <img src="/SVGs/cube-16-solid.svg" className="w-5 h-5 transition-transform duration-500 group-hover:rotate-[360deg] ease-out" alt="Aetheris Logo" />
       <span className="font-mono font-bold tracking-wider text-sm text-arctic-powder">AETHERIS</span>
       <span className="font-mono text-[9px] text-mystic-mint/65 uppercase tracking-wider ml-3.5 border-l border-arctic-powder/15 pl-3.5 h-4 flex items-center">
         // {displayText}

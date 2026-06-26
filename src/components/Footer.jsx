@@ -28,16 +28,18 @@ function Footer({ onOpenPage }) {
     { name: 'Instagram', icon: Instagram, href: '#' }
   ];
 
-  // A sleek, nested double-chevron logo symbol matching the screenshot design
+  // Sleek company logo symbol powered by the brand's cube-16-solid asset
   const LogoSymbol = () => (
-    <svg viewBox="0 0 24 24" className="w-16 h-16 text-arctic-powder fill-current">
-      <path d="M3.5 2H9.5L16 12L10 22H4L10.5 12L3.5 2Z" />
-      <path d="M11.5 2H17.5L24 12L18 22H12L18.5 12L11.5 2Z" />
-    </svg>
+    <img 
+      src="/SVGs/cube-16-solid.svg" 
+      className="w-16 h-16 transition-transform duration-700 hover:rotate-[360deg] ease-out select-none" 
+      alt="Aetheris Logo" 
+      draggable={false}
+    />
   );
 
   return (
-    <footer className="relative bg-black pt-24 pb-8 overflow-hidden border-t border-arctic-powder/10">
+    <footer className="relative bg-oceanic-noir pt-24 pb-8 overflow-hidden border-t border-arctic-powder/10">
       
       {/* Background Grid Accent Line */}
       <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-arctic-powder/10 to-transparent" />

@@ -26,7 +26,7 @@ function useIntersectionReveal() {
   return [ref, isVisible];
 }
 
-function IntegrationCard({ item, index, sharedStream }) {
+function IntegrationCard({ item, index }) {
   const [ref, isVisible] = useIntersectionReveal();
   const sysIndex = index + 1;
   const logoSvg = (
@@ -53,7 +53,6 @@ function IntegrationCard({ item, index, sharedStream }) {
         desc={item.desc}
         logoSvg={logoSvg}
         sysIndex={sysIndex}
-        sharedStream={sharedStream}
         blurStrength={8}
         displacementStrength={15}
         grayscale={0.7}
@@ -79,34 +78,6 @@ function Integrations() {
   ];
 
   const marqueeRef = useRef(null);
-  const [sharedStream, setSharedStream] = useState(null);
-
-  // Initialize a single shared webcam stream for all reflective cards to prevent browser collisions
-  useEffect(() => {
-    let activeStream = null;
-    const initWebcam = async () => {
-      try {
-        activeStream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            width: { ideal: 320 },
-            height: { ideal: 240 },
-            facingMode: 'user'
-          }
-        });
-        setSharedStream(activeStream);
-      } catch (err) {
-        console.warn('Webcam stream unavailable for shared reflective background:', err.message);
-      }
-    };
-
-    initWebcam();
-
-    return () => {
-      if (activeStream) {
-        activeStream.getTracks().forEach(track => track.stop());
-      }
-    };
-  }, []);
 
   useEffect(() => {
     const track = marqueeRef.current;
@@ -130,7 +101,7 @@ function Integrations() {
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}
-        <div className="mb-16 text-left cursor-target">
+        <div className="mb-16 text-center lg:text-left cursor-target">
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight font-sans uppercase">
             <ShinyText text="THE ECOSYSTEM" color="#FFC801" shineColor="#ffffff" speed={3.5} />
           </h2>
@@ -143,7 +114,6 @@ function Integrations() {
               key={item.name}
               item={item}
               index={index}
-              sharedStream={sharedStream}
             />
           ))}
         </div>

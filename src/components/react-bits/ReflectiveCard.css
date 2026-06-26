@@ -40,3 +40,14 @@
 .reflective-card-container:hover .reflective-border {
   border-color: rgba(217, 232, 226, 0.25);
 }
+
+.reflective-animated-backdrop {
+  background: linear-gradient(135deg, #114C5A 0%, #172836 50%, #D9E8E2 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite alternate;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}

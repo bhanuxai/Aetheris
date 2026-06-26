@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import './ReflectiveCard.css';
 
 const ReflectiveCard = ({
@@ -6,7 +6,6 @@ const ReflectiveCard = ({
   desc,
   logoSvg,
   sysIndex,
-  sharedStream = null,
   blurStrength = 12,
   color = 'white',
   metalness = 1,
@@ -20,7 +19,6 @@ const ReflectiveCard = ({
   className = '',
   style = {}
 }) => {
-  const videoRef = useRef(null);
   const cardRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [hovering, setHovering] = useState(false);
@@ -33,43 +31,6 @@ const ReflectiveCard = ({
       y: e.clientY - rect.top
     });
   };
-
-  useEffect(() => {
-    // Use the shared stream to avoid multiple microphone/webcam permissions or collisions
-    if (sharedStream) {
-      if (videoRef.current) {
-        videoRef.current.srcObject = sharedStream;
-      }
-      return;
-    }
-
-    let stream = null;
-    const startWebcam = async () => {
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            width: { ideal: 320 },
-            height: { ideal: 240 },
-            facingMode: 'user'
-          }
-        });
-
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (err) {
-        console.warn('Webcam feed disabled or unavailable for ReflectiveCard:', err.message);
-      }
-    };
-
-    startWebcam();
-
-    return () => {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
-    };
-  }, [sharedStream]);
 
   const baseFrequency = 0.03 / Math.max(0.1, noiseScale);
   const saturation = 1 - Math.max(0, Math.min(1, grayscale));
@@ -140,15 +101,11 @@ const ReflectiveCard = ({
         </defs>
       </svg>
 
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        muted
-        className="reflective-video absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+      <div
+        className="reflective-animated-backdrop absolute inset-0 w-full h-full pointer-events-none select-none"
         style={{
           filter: `url(#metallic-displacement-${sysIndex}) saturate(var(--saturation)) blur(var(--blur-strength))`,
-          opacity: 0.45
+          opacity: 0.55
         }}
       />
 

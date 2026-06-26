@@ -1,0 +1,22 @@
+.curved-loop-jacket {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  touch-action: none;
+}
+
+.curved-loop-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  display: block;
+}
+
+.curved-loop-svg text {
+  fill: currentColor;
+  text-anchor: start;
+}

@@ -1,0 +1,332 @@
+.staggered-menu-wrapper {
+  --sm-accent: #D9E8E2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.staggered-menu-wrapper.fixed-wrapper {
+  position: fixed;
+  height: 100vh;
+}
+
+/* Header style */
+.staggered-menu-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 60;
+  pointer-events: auto;
+}
+
+@media (min-content: 768px) {
+  .staggered-menu-header {
+    padding: 1.5rem 3rem;
+  }
+}
+
+.sm-logo {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.sm-logo-img {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Header Actions Container */
+.sm-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  pointer-events: auto;
+}
+
+/* Sync Button */
+.sm-sync {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  padding: 0.5rem;
+  border: 1px solid rgba(241, 246, 244, 0.15);
+  border-radius: 4px;
+  background: rgba(23, 40, 54, 0.4);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.3s, background-color 0.3s, transform 0.3s;
+  width: 32px;
+  height: 32px;
+}
+
+.sm-sync:hover {
+  border-color: rgba(241, 246, 244, 0.35);
+  background: rgba(23, 40, 54, 0.6);
+}
+
+.sm-sync:active {
+  transform: scale(0.95);
+}
+
+.sm-sync-icon {
+  width: 14px;
+  height: 14px;
+  filter: invert(1);
+  opacity: 0.75;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+}
+
+.sm-sync:hover .sm-sync-icon {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* Toggle Button */
+.sm-toggle {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  pointer-events: auto;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(241, 246, 244, 0.15);
+  border-radius: 4px;
+  background: rgba(23, 40, 54, 0.4);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.sm-toggle:hover {
+  border-color: rgba(241, 246, 244, 0.35);
+  background: rgba(23, 40, 54, 0.6);
+}
+
+.sm-toggle-textWrap {
+  display: inline-block;
+  height: 1rem;
+  overflow: hidden;
+  position: relative;
+  width: 3.5rem;
+  text-align: left;
+}
+
+.sm-toggle-textInner {
+  display: flex;
+  flex-direction: column;
+}
+
+.sm-toggle-line {
+  display: block;
+  height: 1rem;
+  line-height: 1rem;
+}
+
+/* Plus/Cross Icon */
+.sm-icon {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+}
+
+.sm-icon-line {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 12px;
+  height: 2px;
+  background-color: currentColor;
+  transition: background-color 0.3s;
+}
+
+.sm-icon-line-v {
+  transform: rotate(90deg);
+}
+
+/* Prelayers and Main Panel */
+.sm-prelayers {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.staggered-menu-wrapper[data-position="right"] .sm-prelayers {
+  right: 0;
+}
+
+.staggered-menu-wrapper[data-position="left"] .sm-prelayers {
+  left: 0;
+}
+
+.sm-prelayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.staggered-menu-panel {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 460px;
+  height: 100vh;
+  background-color: #172836; /* Oceanic Noir */
+  border-left: 1px solid rgba(241, 246, 244, 0.05);
+  z-index: 55;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 2.5rem;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+}
+
+.staggered-menu-wrapper[data-position="right"] .staggered-menu-panel {
+  right: 0;
+}
+
+.staggered-menu-wrapper[data-position="left"] .staggered-menu-panel {
+  left: 0;
+  border-left: none;
+  border-right: 1px solid rgba(241, 246, 244, 0.05);
+  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.sm-panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+}
+
+/* Panel List */
+.sm-panel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sm-panel-itemWrap {
+  overflow: hidden;
+}
+
+.sm-panel-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #D9E8E2; /* Mystic Mint */
+  font-size: 2.25rem;
+  font-weight: 800;
+  font-family: sans-serif;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.sm-panel-item:hover {
+  color: var(--sm-accent, #F1F6F4);
+}
+
+.sm-panel-itemLabel {
+  display: inline-block;
+}
+
+/* Item numbering */
+.sm-panel-list[data-numbering] .sm-panel-item::before {
+  content: "0" attr(data-index) ".";
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--sm-accent, #D9E8E2);
+  margin-right: 1.25rem;
+  opacity: var(--sm-num-opacity, 0);
+  transition: opacity 0.5s;
+}
+
+/* Socials section */
+.sm-socials {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-top: 1px solid rgba(241, 246, 244, 0.08);
+  padding-top: 1.75rem;
+}
+
+.sm-socials-title {
+  font-family: monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: rgba(241, 246, 244, 0.4);
+  letter-spacing: 0.2em;
+  margin: 0;
+  opacity: 0;
+}
+
+.sm-socials-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.sm-socials-link {
+  color: #D9E8E2;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-family: monospace;
+  transition: color 0.3s;
+  opacity: 1;
+}
+
+.sm-socials-link:hover {
+  color: var(--sm-accent, #F1F6F4);
+}
+
+/* Mobile responsive overlay sizing */
+@media (max-width: 640px) {
+  .staggered-menu-panel {
+    max-width: 100%;
+    padding: 3rem 1.5rem;
+  }
+  .sm-panel-item {
+    font-size: 1.75rem;
+  }
+  .sm-panel-list {
+    gap: 1.25rem;
+  }
+}

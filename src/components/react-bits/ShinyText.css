@@ -1,0 +1,18 @@
+.shiny-text {
+  color: var(--text-color, #b5b5b5);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  background-repeat: no-repeat;
+  text-fill-color: transparent;
+}
+
+/* Enable high performance transitions */
+.shiny-text.disabled {
+  background-image: none !important;
+  background-clip: unset !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: inherit;
+}

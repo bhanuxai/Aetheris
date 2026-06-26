@@ -1,0 +1,29 @@
+.carousel-container {
+  position: relative;
+  overflow: visible;
+}
+
+.carousel-track {
+  display: flex;
+  transform-style: preserve-3d;
+}
+
+.carousel-item {
+  flex-shrink: 0;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  box-shadow: 0 12px 40px -15px rgba(0, 0, 0, 0.7);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.carousel-item:hover {
+  border-color: rgba(217, 232, 226, 0.25);
+  background-color: rgba(17, 76, 90, 0.3);
+}
+
+.carousel-indicator {
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  outline: none;
+}

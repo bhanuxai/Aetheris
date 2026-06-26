@@ -282,24 +282,32 @@ function Pricing() {
     GBP: 'GBP (£)'
   };
 
-  const currencySymbols = {
-    USD: '$',
-    INR: '₹',
-    EUR: '€',
-    GBP: '£'
+  const pricingConfig = {
+    baseRate: 129,
+    annualDiscount: 0.20,
+    regionalTariffs: {
+      USD: { multiplier: 1.0, symbol: '$' },
+      INR: { multiplier: 85.26, symbol: '₹' },
+      EUR: { multiplier: 0.922, symbol: '€' },
+      GBP: { multiplier: 0.767, symbol: '£' }
+    }
   };
 
-  const priceTable = {
-    USD: { monthly: 129, annual: 103 },
-    INR: { monthly: 10999, annual: 8799 },
-    EUR: { monthly: 119, annual: 95 },
-    GBP: { monthly: 99, annual: 79 }
+  const getCalculatedPrice = (currency, billingCycle) => {
+    const config = pricingConfig.regionalTariffs[currency];
+    const baseAmount = pricingConfig.baseRate * config.multiplier;
+    const finalAmount = billingCycle === 'annual' 
+      ? baseAmount * (1 - pricingConfig.annualDiscount) 
+      : baseAmount;
+    
+    return Math.round(finalAmount);
   };
 
   const updateDOMPrices = () => {
     const currentCurrency = currencyRef.current;
     const currentBilling = billingCycleRef.current;
-    const symbol = currencySymbols[currentCurrency];
+    const config = pricingConfig.regionalTariffs[currentCurrency];
+    const symbol = config.symbol;
 
     // Update Sandbox
     const sandboxPriceEl = document.getElementById('price-dev-sandbox');
@@ -310,7 +318,7 @@ function Pricing() {
     // Update Scale Node Price
     const scaleNodePriceEl = document.getElementById('price-scale-node');
     if (scaleNodePriceEl) {
-      const amount = priceTable[currentCurrency][currentBilling];
+      const amount = getCalculatedPrice(currentCurrency, currentBilling);
       const formattedAmount = currentCurrency === 'INR' ? amount.toLocaleString('en-IN') : amount;
       scaleNodePriceEl.textContent = `${symbol}${formattedAmount}`;
     }

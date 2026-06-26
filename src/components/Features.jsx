@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Eye, Layers, Code, Play, ChevronDown } from 'lucide-react';
 import ShinyText from './react-bits/ShinyText';
 
 function Features() {
@@ -19,25 +18,25 @@ function Features() {
     {
       title: 'Discovery',
       description: 'Deploy silent ingestion triggers across distributed microservices. Aetheris automatically discovers active network hooks, parses unstructured JSON logs, and builds unified schema definitions in real-time.',
-      icon: <Eye className="w-5 h-5" />,
+      iconPath: '/SVGs/search.svg',
       tag: 'Telemetry'
     },
     {
       title: 'Analysis',
       description: 'Inspect inbound vector and database streams dynamically. Our semantic analyzer checks database integrity, matches historic transaction patterns, and blocks suspicious API payloads before compromising storage.',
-      icon: <Layers className="w-5 h-5" />,
+      iconPath: '/SVGs/chart-pie.svg',
       tag: 'Security'
     },
     {
       title: 'Training',
       description: 'Fine-tune small language parsing models directly on your historic log database. Provisioned on isolated GPU server nodes, Aetheris models compile unstructured log files with extreme vocabulary accuracy.',
-      icon: <Code className="w-5 h-5" />,
+      iconPath: '/SVGs/cog-8-tooth.svg',
       tag: 'Optimization'
     },
     {
       title: 'Deploy',
       description: 'Publish your parsed endpoints globally. When upstream third-party service APIs modify their schema configurations, Aetheris automatically shifts routing definitions at the edge, preventing pipeline breaks.',
-      icon: <Play className="w-5 h-5" />,
+      iconPath: '/SVGs/link.svg',
       tag: 'Edge Sync'
     }
   ];
@@ -84,9 +83,15 @@ function Features() {
                   >
                     <div className="flex items-center gap-3.5">
                       <div className={`p-2 rounded transition-colors duration-300 ${
-                        isActive ? 'bg-mystic-mint text-oceanic-noir' : 'bg-arctic-powder/5 text-mystic-mint/70'
+                        isActive ? 'bg-mystic-mint' : 'bg-arctic-powder/5'
                       }`}>
-                        {item.icon}
+                        <img 
+                          src={item.iconPath} 
+                          className={`w-5 h-5 transition-all duration-300 ${
+                            isActive ? 'brightness-0' : 'invert opacity-75'
+                          }`} 
+                          alt={item.title} 
+                        />
                       </div>
                       <div>
                         <span className="font-mono text-xs text-mystic-mint/40 uppercase tracking-widest block mb-0.5">
@@ -97,9 +102,13 @@ function Features() {
                         </h3>
                       </div>
                     </div>
-                    <ChevronDown className={`w-4 h-4 text-mystic-mint/65 transition-transform duration-300 ${
-                      isActive ? 'rotate-180 text-mystic-mint' : ''
-                    }`} />
+                    <img 
+                      src="/SVGs/chevron-down.svg" 
+                      className={`w-4 h-4 invert opacity-75 transition-transform duration-300 ${
+                        isActive ? 'rotate-180' : ''
+                      }`} 
+                      alt="Toggle" 
+                    />
                   </button>
 
                   {/* Body Content */}
@@ -140,8 +149,14 @@ function Features() {
 
               <div>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded ${activeIndex === 0 ? 'bg-mystic-mint text-oceanic-noir' : 'bg-arctic-powder/5 text-mystic-mint'}`}>
-                    {items[0].icon}
+                  <div className={`p-2 rounded ${activeIndex === 0 ? 'bg-mystic-mint' : 'bg-arctic-powder/5'}`}>
+                    <img 
+                      src={items[0].iconPath} 
+                      className={`w-5 h-5 transition-all duration-300 ${
+                        activeIndex === 0 ? 'brightness-0' : 'invert opacity-75'
+                      }`} 
+                      alt={items[0].title} 
+                    />
                   </div>
                   <span className="font-mono text-[10px] text-mystic-mint/50 uppercase tracking-widest">
                     {items[0].tag}
@@ -189,8 +204,14 @@ function Features() {
 
               <div>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded ${activeIndex === 1 ? 'bg-mystic-mint text-oceanic-noir' : 'bg-arctic-powder/5 text-mystic-mint'}`}>
-                    {items[1].icon}
+                  <div className={`p-2 rounded ${activeIndex === 1 ? 'bg-mystic-mint' : 'bg-arctic-powder/5'}`}>
+                    <img 
+                      src={items[1].iconPath} 
+                      className={`w-5 h-5 transition-all duration-300 ${
+                        activeIndex === 1 ? 'brightness-0' : 'invert opacity-75'
+                      }`} 
+                      alt={items[1].title} 
+                    />
                   </div>
                   <span className="font-mono text-[10px] text-mystic-mint/50 uppercase tracking-widest">
                     {items[1].tag}
@@ -224,8 +245,14 @@ function Features() {
 
               <div>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded ${activeIndex === 2 ? 'bg-mystic-mint text-oceanic-noir' : 'bg-arctic-powder/5 text-mystic-mint'}`}>
-                    {items[2].icon}
+                  <div className={`p-2 rounded ${activeIndex === 2 ? 'bg-mystic-mint' : 'bg-arctic-powder/5'}`}>
+                    <img 
+                      src={items[2].iconPath} 
+                      className={`w-5 h-5 transition-all duration-300 ${
+                        activeIndex === 2 ? 'brightness-0' : 'invert opacity-75'
+                      }`} 
+                      alt={items[2].title} 
+                    />
                   </div>
                   <span className="font-mono text-[10px] text-mystic-mint/50 uppercase tracking-widest">
                     {items[2].tag}
@@ -260,8 +287,14 @@ function Features() {
 
               <div>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded ${activeIndex === 3 ? 'bg-mystic-mint text-oceanic-noir' : 'bg-arctic-powder/5 text-mystic-mint'}`}>
-                    {items[3].icon}
+                  <div className={`p-2 rounded ${activeIndex === 3 ? 'bg-mystic-mint' : 'bg-arctic-powder/5'}`}>
+                    <img 
+                      src={items[3].iconPath} 
+                      className={`w-5 h-5 transition-all duration-300 ${
+                        activeIndex === 3 ? 'brightness-0' : 'invert opacity-75'
+                      }`} 
+                      alt={items[3].title} 
+                    />
                   </div>
                   <span className="font-mono text-[10px] text-mystic-mint/50 uppercase tracking-widest">
                     {items[3].tag}

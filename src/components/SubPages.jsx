@@ -236,7 +236,7 @@ function SubPages({ activePage, onClose }) {
               className="p-2 border border-arctic-powder/10 hover:border-arctic-powder/30 rounded text-mystic-mint hover:text-arctic-powder hover:bg-arctic-powder/5 transition-all cursor-target block shadow-sm"
               aria-label="Close page"
             >
-              <X className="w-4 h-4" />
+              <img src="/SVGs/x-mark.svg" className="w-4 h-4 invert opacity-75" alt="Close" />
             </button>
           </Magnet>
         </div>
